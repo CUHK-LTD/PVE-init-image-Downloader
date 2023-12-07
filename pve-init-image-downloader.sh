@@ -5,7 +5,7 @@ get_storage_pools() {
     pvesm status | awk 'NR>1 {print $1}'
 }
 
-# Function to allow user to select a storage pool
+# Function to allow the user to select a storage pool
 select_storage_pool() {
     echo "Scanning for available storage pools..."
     readarray -t storage_pools <<< "$(get_storage_pools)"
@@ -32,7 +32,7 @@ select_storage_pool() {
     done
 }
 
-# Define VM information
+# Initialize VMs associative array
 declare -A VMs=(
     [1001]=('https://cloud.debian.org/images/cloud/bullseye/latest/debian-11-genericcloud-amd64.qcow2' 'debian11')
     [1002]=('https://cloud.debian.org/images/cloud/bookworm/latest/debian-12-genericcloud-amd64.qcow2' 'debian12')
@@ -47,7 +47,7 @@ declare -A VMs=(
 # Allow user to select a storage pool
 select_storage_pool
 
-# Get user choice for downloading all or one image
+# Ask the user if they want to download all distros or select one
 echo "Do you want to download images for all distributions or select one?"
 echo "1) Download all"
 echo "2) Select from list"
